@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fibonacci Calculator</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+<body>
+    <h1>Fibonacci Calculator</h1>
+    <div class="container">
+        <form id="fibonacci-form" method="POST" action="/calculate_fibonacci">
+            <label for="n">Enter a number:</label>
+            <input type="number" id="n" name="n" required>
+            <button type="submit">Calculate Fibonacci</button>
+        </form>
+        <div id="result"></div>
+        {% if data %}
+        <h2>Previously Calculated Results</h2>
+        <ul>
+            {% for item in data %}
+            <li>index: {{ item }} | fib: {{ data[item] }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}  
+        {% if message %}
+        <h2>{{ message }}</h2>
+        {% endif %} 
+    </div>
+</body>
+</html>
