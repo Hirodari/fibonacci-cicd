@@ -41,9 +41,9 @@ env:
         working-directory: ./iac/terraform-infrastructure 
         run: |
           echo "starting terraform debugging"
-          set -x  
-          terraform ${{ env.TERRAFORM_ACTION }}
-          set +x  
+          # set -x  
+          # terraform ${{ env.TERRAFORM_ACTION }}
+          # set +x  
   
 
   # Create ECR repository
