@@ -16,10 +16,7 @@ jobs:
     name: Configure AWS credentials
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-      
+    steps: 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
@@ -46,7 +43,7 @@ jobs:
       #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
     
   # build AWS infrastructure for EKS cluster
-  deploy_AWS_infrastructure:
+  deploy_aws_infrastructure:
     name: build AWS infra
     needs: configure-aws-credentials
     runs-on: ubuntu-latest
