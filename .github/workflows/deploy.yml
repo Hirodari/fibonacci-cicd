@@ -95,7 +95,7 @@ jobs:
       - name: create ECR repository
         env:
           IMAGE_NAME: env.IMAGE_NAME
-        if: $result != env.IMAGE_NAME
+        if: env.repo_name != env.IMAGE_NAME
         run: |
           aws ecr create-repository --repository-name ${{ env.IMAGE_NAME }}
   # deploy_eks:
