@@ -10,6 +10,20 @@ env:
   TERRAFORM_ACTION: plan
   IMAGE_NAME: "fibonacci"
 
+jobs:
+  # Configure AWS credentials
+  configure_aws_credentials:
+    name: Configure AWS credentials
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+    
   # build AWS infrastructure for EKS cluster
   deploy_aws_infrastructure:
     name: build AWS infra
@@ -38,13 +52,14 @@ env:
         run: terraform init
 
       - name: Run Terraform apply/destroy
-        working-directory: ./iac/terraform-infrastructure 
+        working-directory: ./iac/terraform-infrastructure
         run: |
-          echo "starting terraform debugging"
-          # set -x  
-          # terraform ${{ env.TERRAFORM_ACTION }}
-          # set +x  
-  
+          echo "debugging terraform" 
+          set -x 
+          terraform ${{ env.TERRAFORM_ACTION }}  -lock=false #--auto-approve
+          set +x
+    outputs:
+      terraform_action: ${{ env.TERRAFORM_ACTION }}
 
   # Create ECR repository
   # create_ecr_repository:
