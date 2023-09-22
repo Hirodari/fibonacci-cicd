@@ -60,7 +60,7 @@ jobs:
         with:
           terraform_version: v1.5.7
       
-      - name: Initialize terraform
+      - name: Initialize terraform  
         working-directory: ./iac
         run: terraform init
 
