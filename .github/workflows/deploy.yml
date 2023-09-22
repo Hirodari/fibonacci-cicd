@@ -27,7 +27,7 @@ jobs:
   # build AWS infrastructure for EKS cluster
   deploy_aws_infrastructure:
     name: build AWS infra
-    needs: configure-aws-credentials
+    needs: configure_aws_credentials
     runs-on: ubuntu-latest
     timeout-minutes: 10 
     steps:
@@ -62,7 +62,7 @@ jobs:
     name: create ECR repository
     needs: 
       - configure_aws_credentials
-      - deploy_AWS_infrastructure
+      - deploy_aws_infrastructure
     if: needs.deploy_AWS_infrastructure.outputs.terraform_action != 'destroy'
     runs-on: ubuntu-latest
     steps:
