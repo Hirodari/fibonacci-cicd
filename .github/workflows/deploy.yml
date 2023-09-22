@@ -61,7 +61,7 @@ jobs:
           terraform_version: v1.5.7
       
       - name: Initialize terraform  
-        working-directory: ./iac
+        working-directory: ./iac/terraform-infrastructure
         run: terraform init
 
       - name: Run Terraform apply/destroy
