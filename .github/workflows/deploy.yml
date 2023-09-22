@@ -44,8 +44,8 @@ jobs:
 
       - name: Set up Terraforn
         uses: hashicorp/setup-terraform@v2
-        # with:
-        #   terraform_version: v1.5.7
+        with:
+          terraform_version: v1.1.7
       
       - name: Initialize terraform  
         working-directory: ./iac/terraform-infrastructure
