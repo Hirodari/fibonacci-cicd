@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
 
+
+env:
+# environment controller
+  TERRAFORM_ACTION: plan
+  IMAGE_NAME: "fibonacci"
+
 jobs:
   # Configure AWS credentials
   configure-aws-credentials:
@@ -21,22 +27,96 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-        with:
-          mask-password: true
-          registry-type: private
-          skip-logout: false
+      # - name: Login to Amazon ECR
+      #   id: login-ecr
+      #   uses: aws-actions/amazon-ecr-login@v1
+      #   with:
+      #     mask-password: true
+      #     registry-type: private
+      #     skip-logout: false
 
-      - name: Build, tag and push image to Amazon ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: fibonacci
-          IMAGE_TAG: ${{ github.sha }}
-        working-directory: ./api
+      # - name: Build, tag and push image to Amazon ECR
+      #   env:
+      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      #     ECR_REPOSITORY: fibonacci
+      #     IMAGE_TAG: ${{ github.sha }}
+      #   working-directory: ./api
+      #   run: |
+      #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+    
+  # build AWS infrastructure for EKS cluster
+  deploy_AWS_infrastructure:
+    name: build AWS infra
+    needs: configure-aws-credentials
+    runs-on: ubuntu-latest
+    timeout-minutes: 10 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Terraforn
+        uses: harshicorp/setup-terraform@v2
+        with:
+          terraform_version: v1.5.7
+      
+      - name: Initialize terraform
+        working-directory: ./iac/terraform-infrastructure
+        run: terraform init
+
+      - name: Run Terraform apply/destroy
+        working-directory: ./iac/terraform-infrastructure
+        run: terraform ${{ env.TERRAFORM_ACTION }} --auto-approve
+    outputs:
+      terraform_action: ${{ env.TERRAFORM_ACTION }}
+
+  # Create ECR repository
+  create_ecr_repository:
+    name: create ECR repository
+    needs: 
+      - configure-aws-credentials
+      - deploy_AWS_infrastructure
+    if: needs.deploy_AWS_infrastructure.outputs.terraform_action != 'destroy'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Check if ECR repository exists
+        env: 
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          result=$(aws ecr describe-depositories --repository-names "${{ env.IMAGE_NAME}}" | 
+                  jq -r '.repositories[0].repositoryName'
+          )
+          echo $result
+        continue-on-error: true
+      
+      - name: create ECR repository
+        env:
+          IMAGE_NAME: env.IMAGE_NAME
+        if: $result != env.IMAGE_NAME
+        run: |
+          aws ecr create-repository --repository-name ${{ env.IMAGE_NAME }}
+  # deploy_eks:
+  #   name: Configure AWS credentials
+  #   needs: configure-aws-credentials
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Install kubectl
+  #       uses: azure/setup-kubectl@v1
+  #       with:
+  #         version: 'v1.28.2'
+  #       id: install
+      
+  #     - name: Update Kube config
+  #       run: aws eks update-kubeconfig --name fibo-cluster --region eu-west-1
+      
+  #     - name: Update image to Amazon EKS
+  #       run: | 
+  #         kubectl apply -f ./k8s
+
+
 
       

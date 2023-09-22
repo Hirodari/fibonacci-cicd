@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata:
+    name: ingress-service-eks
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: nginx 
+  rules:
+  - host: "api.fredbitenyo.link" # your purchased domain
+    http:
+      paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-cluster-ip-service
+                port: 
+                    number: 5000
+          - path: /hello-world
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-world-service
+                port: 
+                    number: 8080
+  tls:
+  - hosts:
+    - api.fredbitenyo.link
+    secretName: api-fibonacci-cert
+    
