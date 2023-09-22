@@ -89,13 +89,13 @@ jobs:
           result=$(aws ecr describe-depositories --repository-names "${{ env.IMAGE_NAME}}" | 
                   jq -r '.repositories[0].repositoryName'
           )
-          echo $result
+          echo "repo_name=$result" >> $GITHUB_ENV
         continue-on-error: true
       
       - name: create ECR repository
         env:
           IMAGE_NAME: env.IMAGE_NAME
-        if: $result != env.IMAGE_NAME
+        if: env.repo_name != env.IMAGE_NAME
         run: |
           aws ecr create-repository --repository-name ${{ env.IMAGE_NAME }}
   # deploy_eks:
