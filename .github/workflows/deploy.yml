@@ -39,7 +39,7 @@ jobs:
 
       - name: Run Terraform apply/destroy
         working-directory: ./iac/terraform-infrastructure
-        run: echo ${{ env.TERRAFORM_ACTION }}
+        run: terraform ${{ env.TERRAFORM_ACTION }} -lock=false
 
 
       
