@@ -7,7 +7,7 @@ on:
 
 env:
 # environment controller
-  TERRAFORM_ACTION: apply
+  TERRAFORM_ACTION: plan
   IMAGE_NAME: "fibonacci"
 
 jobs:    
@@ -30,8 +30,8 @@ jobs:
 
       - name: Set up Terraforn
         uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: v1.4.6
+        # with:
+        #   terraform_version: v1.4.6
       
       - name: Initialize terraform  
         working-directory: ./iac/terraform-infrastructure
