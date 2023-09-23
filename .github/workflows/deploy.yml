@@ -9,10 +9,6 @@ env:
 # environment controller
   TERRAFORM_ACTION: plan
   IMAGE_NAME: "fibonacci"
-  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  aws-region: ${{ secrets.AWS_REGION }}
-
 
 jobs:    
   # build AWS infrastructure for EKS cluster
@@ -21,11 +17,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Terraforn
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v1
         # with:
         #   terraform_version: v1.4.6
       
@@ -35,7 +39,7 @@ jobs:
 
       - name: Run Terraform apply/destroy
         working-directory: ./iac/terraform-infrastructure
-        run: terraform ${{ env.TERRAFORM_ACTION }} -lock=false
+        run: terraform plan -lock=false
         continue-on-error: true
 
 
