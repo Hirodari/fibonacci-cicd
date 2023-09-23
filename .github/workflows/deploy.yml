@@ -14,7 +14,6 @@ jobs:
   # build AWS infrastructure for EKS cluster
   deploy_aws_infrastructure:
     name: build AWS infra
-    needs: configure_aws_credentials
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
