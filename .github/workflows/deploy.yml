@@ -38,10 +38,10 @@ jobs:
         working-directory: ./iac/terraform-infrastructure
         run: terraform init
 
-      # - name: Run Terraform apply/destroy
-      #   working-directory: ./iac/terraform-infrastructure
-      #   run: terraform plan -lock=false
-      #   continue-on-error: true
+      - name: Run Terraform apply/destroy
+        working-directory: ./iac/terraform-infrastructure
+        run: terraform plan -lock=false
+        continue-on-error: true
 
 
       
