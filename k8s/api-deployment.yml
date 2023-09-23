@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: fib-app
-          image: 763544978374.dkr.ecr.us-east-1.amazonaws.com/fibonacci:latest
+          image: 116429386222.dkr.ecr.us-east-1.amazonaws.com/fibonacci:1.0
           ports:
             - containerPort: 5000
           env:

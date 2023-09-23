@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx 
   rules:
-  - host: "api.fredbitenyo.link" # your purchased domain
+  - host: "aad68c6a56c6540cd982e043704f4ffb-40b4764686e125d5.elb.us-east-1.amazonaws.com" # your purchased domain
     http:
       paths:
           - path: /

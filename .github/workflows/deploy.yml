@@ -15,9 +15,13 @@ jobs:
   deploy_aws_infrastructure:
     name: build AWS infra
     runs-on: ubuntu-latest
-    timeout-minutes: 2
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
+      - name: Set up Terraforn
+        uses: hashicorp/setup-terraform@v1
+        
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
@@ -25,14 +29,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Terraforn
-        uses: hashicorp/setup-terraform@v1
-        # with:
-        #   terraform_version: v1.4.6
-      
       - name: Initialize terraform  
         working-directory: ./iac/terraform-infrastructure
         run: terraform init
