@@ -4,7 +4,7 @@
 set -eu
 
 # go back to the previous directory
-cd ./iac/terraform-infrastructure
+cd ../iac/terraform-infrastructure
 
 # initialize terraform
 terraform init
