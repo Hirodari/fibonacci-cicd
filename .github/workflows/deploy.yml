@@ -40,7 +40,7 @@ jobs:
 
       - name: Run Terraform apply/destroy
         working-directory: ./iac/terraform-infrastructure
-        run: terraform plan 
+        run: terraform plan -lock=false
         continue-on-error: true
 
 
