@@ -35,13 +35,13 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Initialize terraform  
-        working-directory: ./iac/terraform-infrastructure
-        run: terraform init
+        working-directory: ./cicd
+        run: bash setup-eks.sh
 
-      - name: Run Terraform apply/destroy
-        working-directory: ./iac/terraform-infrastructure
-        run: terraform plan -lock=false
-        continue-on-error: true
+      # - name: Run Terraform apply/destroy
+      #   working-directory: ./iac/terraform-infrastructure
+      #   run: terraform plan -lock=false
+      #   continue-on-error: true
 
 
       

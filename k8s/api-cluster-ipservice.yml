@@ -7,7 +7,7 @@ spec:
   # type: NodePort
   type: ClusterIP
   selector:
-    component: fibonnaci
+    app: fibonnaci
   ports:
     - protocol: TCP
       port: 5000

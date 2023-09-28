@@ -7,25 +7,25 @@ metadata:
 spec:
   ingressClassName: nginx 
   rules:
-  - host: "aad68c6a56c6540cd982e043704f4ffb-40b4764686e125d5.elb.us-east-1.amazonaws.com" # your purchased domain
+  - host: "a561a5cbe5fec4df6a34007be45cd9b5-2b3d852c70d0e2c0.elb.us-east-1.amazonaws.com" # your purchased domain
     http:
       paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: api-cluster-ip-service
-                port: 
-                    number: 5000
-          - path: /hello-world
-            pathType: Prefix
-            backend:
-              service:
-                name: hello-world-service
-                port: 
-                    number: 8080
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: api-cluster-ip-service
+              port: 
+                  number: 5000
+        - path: "/hello-world"
+          pathType: Prefix
+          backend:
+            service:
+              name: hello-world-service
+              port: 
+                  number: 8080
   tls:
   - hosts:
-    - api.fredbitenyo.link
+    - "a561a5cbe5fec4df6a34007be45cd9b5-2b3d852c70d0e2c0.elb.us-east-1.amazonaws.com"
     secretName: api-fibonacci-cert
     

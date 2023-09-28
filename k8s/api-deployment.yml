@@ -1,17 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-api
-  namespace: default
+  name: fibonacci-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: fibonnaci
+      app: fibonnaci
   template:
     metadata:
       labels:
-        component: fibonnaci
+        app: fibonnaci
     spec:
       containers:
         - name: fib-app
