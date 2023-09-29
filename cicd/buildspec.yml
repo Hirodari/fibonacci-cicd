@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - cd cicd # change directory
+      - chmod +x eks-install.sh setup-eks.sh configure-named-profile.sh # make files executable
+      - ./eks-install.sh # install terraform
+      - ./configure-named-profile.sh # configure named profile
+
+  build:
+    commands:
+      - echo build started on `date`
+      - echo creating eks cluster and group node
+      # - ./push-to-ecr.sh
+      - bash setup-eks.sh
+      - echo deployment done at `date`
