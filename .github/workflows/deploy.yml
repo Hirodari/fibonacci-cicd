@@ -64,7 +64,7 @@ jobs:
           eksctl version
 
       - name: create eks cluster from eksctl 
-        run: eksctl create cluster --name firstcluster --region us-east-1 --nodegroup-name eksgroup --node-type t2.small --nodes 2
+        run: bash scripts/create-eks-cluster.sh
       
       - name: update kube config 
         run: aws eks update-kubeconfig --name firstcluster
