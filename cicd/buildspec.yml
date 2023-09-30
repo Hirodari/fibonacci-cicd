@@ -15,3 +15,4 @@ phases:
       # - ./push-to-ecr.sh
       - bash setup-eks.sh
       - echo deployment done at `date`
+      - bash deploy-k8s.sh
