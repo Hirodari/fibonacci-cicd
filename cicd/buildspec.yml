@@ -4,9 +4,9 @@ phases:
   pre_build:
     commands:
       - cd cicd # change directory
-      - chmod +x eks-install.sh setup-eks.sh configure-named-profile.sh # make files executable
-      - ./k8s-tools-install.sh # install terraform
-      - ./configure-named-profile.sh # configure named profile
+      # - chmod +x eks-install.sh setup-eks.sh configure-named-profile.sh # make files executable
+      - bash k8s-tools-install.sh # install terraform
+      - bash configure-named-profile.sh # configure named profile
 
   build:
     commands:
