@@ -13,6 +13,6 @@ phases:
       - echo build started on `date`
       - echo creating eks cluster and group node
       # - ./push-to-ecr.sh
-      - bash setup-eks.sh
+      # - bash setup-eks.sh
       - echo deployment done at `date`
       - bash deploy-k8s.sh

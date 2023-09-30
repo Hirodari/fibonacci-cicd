@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "connecting to the correct cluster"
-aws eks update-kubeconfig --name ekslearningcluster --region us-east-1
+aws eks update-kubeconfig --name firstcluster --region us-east-1
 kubectl get nodes
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/aws/deploy
