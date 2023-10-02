@@ -10,7 +10,7 @@ cd ../iac/terraform-infrastructure
 terraform init
 terraform destroy --auto-approve
 
-# echo "connecting to the correct cluster"
+echo "connecting to the correct cluster"
 # aws eks update-kubeconfig --name firstcluster --region us-east-1
 # kubectl get nodes
 
