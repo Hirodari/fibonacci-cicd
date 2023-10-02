@@ -6,7 +6,7 @@ set -eu
 echo "deploy terraform"
 
 pwd
-cd ../iac/
+cd ../iac/terraform-infrastructure
 terraform init
 terraform apply --auto-approve
 
