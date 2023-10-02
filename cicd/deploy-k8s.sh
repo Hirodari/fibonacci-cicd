@@ -1,9 +1,12 @@
 #!/bin/bash
 
+# fail on any error
+set -eu
+
 echo "deploy terraform"
 
 pwd
-cd iac/
+cd ../iac/
 terraform init
 terraform apply --auto-approve
 
