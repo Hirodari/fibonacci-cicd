@@ -14,3 +14,4 @@ phases:
     commands:
       - echo build started on `date`
       - bash deploy-k8s.sh
+      - echo build finished on `date`
