@@ -2,7 +2,8 @@
 
 echo "deploy terraform"
 
-cd iac
+pwd
+cd iac/
 terraform init
 terraform apply --auto-approve
 
