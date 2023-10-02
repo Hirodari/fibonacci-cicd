@@ -20,4 +20,4 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 
 kubectl get services
 
-kubectl apply -f ../../k8s/
+kubectl apply -f ../../k8s/api-deployment.yml
