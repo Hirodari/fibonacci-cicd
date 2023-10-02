@@ -7,10 +7,10 @@ set -eu
 docker build -t hirodaridevdock/angular ../angular-demo/.
 
 # retag docker image 
-docker tag hirodaridevdock/angular $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/angular
+docker tag hirodaridevdock/fibonacci $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/fibonacci
 
 # login to ecr
 aws ecr get-login-password | docker login --username AWS --password-stdin $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com
 
 # push docker image to ecr repository 
-docker push $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/angular
+docker push $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/fibonacci

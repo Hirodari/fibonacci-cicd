@@ -5,13 +5,12 @@ phases:
     commands:
       - cd cicd # change directory
       # - chmod +x eks-install.sh setup-eks.sh configure-named-profile.sh # make files executable
-      - bash k8s-tools-install.sh # install terraform
+      - echo install terraform 
+      - bash install-terraform-ubuntu.sh # install terraform
       - bash configure-named-profile.sh # configure named profile
+      - bash k8s-tools-install.sh
 
   build:
     commands:
       - echo build started on `date`
-      - echo delete k8s
-      - bash undeploy-k8s.sh
-      - bash setup-eks.sh
-      - echo deployment done at `date`
+      - bash deploy-k8s.sh

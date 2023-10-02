@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx 
   rules:
-  - host: "a561a5cbe5fec4df6a34007be45cd9b5-2b3d852c70d0e2c0.elb.us-east-1.amazonaws.com" # your purchased domain
+  - host: "a39d523222ffa41198f468726b5aeda8-3145e4d52c7c2572.elb.us-east-1.amazonaws.com" # your purchased domain
     http:
       paths:
         - path: "/"
@@ -26,6 +26,6 @@ spec:
                   number: 8080
   tls:
   - hosts:
-    - "a561a5cbe5fec4df6a34007be45cd9b5-2b3d852c70d0e2c0.elb.us-east-1.amazonaws.com"
+    - "a39d523222ffa41198f468726b5aeda8-3145e4d52c7c2572.elb.us-east-1.amazonaws.com"
     secretName: api-fibonacci-cert
     
